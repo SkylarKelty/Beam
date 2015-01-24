@@ -24,8 +24,8 @@ $CFG->database = array(
     'host' => 'localhost',
     'port' => '3306',
     'database' => 'beam_development',
-    'username' => 'root',
-    'password' => '',
+    'username' => 'beam',
+    'password' => 'password',
     'prefix' => 'beam_'
 );
 
