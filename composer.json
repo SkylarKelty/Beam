@@ -1,0 +1,27 @@
+{
+   "name": "skylarkelty/beam",
+   "description": "Yet another blogging system.",
+   "type": "library",
+   "keywords": [
+      "blog"
+   ],
+   "homepage": "https://github.com/SkylarKelty/Beam",
+   "license": "Apache License v2.0",
+   "authors": [{
+      "name": "Skylar Tristan Kelty",
+      "email": "skylarkelty@gmail.com",
+      "role": "lead"
+   }],
+   "require": {
+      "php": ">=5.5",
+      "skylarkelty/rapid": "dev-master"
+   },
+   "require-dev": {
+      "phpunit/phpunit": "4.4.*"
+   },
+   "autoload": {
+      "psr-4": {
+         "Rapid\\": ["src/"]
+      }
+   }
+}
