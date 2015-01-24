@@ -52,17 +52,21 @@ abstract class Setup
 	    // Setup a guest user by default.
 	    $USER = new \Rapid\Auth\User();
 
-	    // Output library.
-	    $OUTPUT = new \Rapid\Presentation\Output();
+	    if (!CLI_SCRIPT) {
+		    // Output library.
+		    $OUTPUT = new \Rapid\Presentation\Output();
 
-	    // Page library.
-	    $PAGE = new \Rapid\Presentation\Page();
+		    // Page library.
+		    $PAGE = new \Rapid\Presentation\Page();
+		    $PAGE->require_css("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css");
+		    $PAGE->require_js("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js");
 
-	    // Set a default page title.
-	    $PAGE->set_title($CFG->brand);
+		    // Set a default page title.
+		    $PAGE->set_title($CFG->brand);
 
-	    // Setup navigation.
-	    $PAGE->menu($CFG->menu);
+		    // Setup navigation.
+		    $PAGE->menu($CFG->menu);
+		}
 	}
 
 	/**
