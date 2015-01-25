@@ -18,6 +18,7 @@ $CFG->jsroot = $CFG->dirroot . '/media/js';
 $CFG->wwwroot = 'http://localhost:8080';
 
 $CFG->developer_mode = true;
+$CFG->profiling_mode = true;
 
 $CFG->database = array(
     'adapter' => 'mysql',

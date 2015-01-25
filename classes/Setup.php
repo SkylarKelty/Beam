@@ -35,7 +35,7 @@ abstract class Setup
 		// Developer mode?
 		if (isset($CFG->developer_mode) && $CFG->developer_mode) {
 			@error_reporting(E_ALL);
-			set_error_handler(array('Beam\\Setup', 'error_handler'), E_ALL);
+			set_error_handler(array('Rapid\\Core', 'error_handler'), E_ALL);
 		}
 
 		// DB connection.
@@ -105,36 +105,5 @@ abstract class Setup
 		        $CFG->$name = $record->value;
 		    }
 		}
-	}
-
-	/**
-	 * Error handler.
-	 */
-	public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
-		global $PAGE;
-
-		switch ($errno) {
-			case E_STRICT:
-			case E_DEPRECATED:
-			case E_NOTICE:
-			case E_WARNING:
-			case E_USER_WARNING:
-			case E_USER_NOTICE:
-				$message = "Issue in {$errfile} ({$errline}): {$errstr}.";
-				if (isset($PAGE)) {
-					$PAGE->notify($message);
-				} else {
-					echo $message;
-				}
-			break;
-
-			case E_ERROR:
-			case E_USER_ERROR:
-				// TODO - fast exit a nice Page.
-			break;
-		}
-
-		// Allow PHP to do its thing.
-		return false;
 	}
 }
