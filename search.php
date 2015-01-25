@@ -9,6 +9,7 @@
 require_once(dirname(__FILE__) . '/config.php');
 
 $PAGE->set_title('Beam - Search');
+$PAGE->set_url('/search.php');
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading();

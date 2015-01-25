@@ -77,7 +77,12 @@ abstract class Setup
 		    $PAGE->set_title($CFG->brand);
 
 		    // Setup navigation.
-		    $PAGE->menu($CFG->menu);
+		    $PAGE->add_menu_item('Home','/index.php');
+		    if ($USER->loggedin()) {
+		    	$PAGE->add_menu_item('Logout','/logout.php');
+		    } else {
+		    	$PAGE->add_menu_item('Login','/login.php');
+		    }
 		} else {
 		    // Output library.
 		    $OUTPUT = new \Rapid\Presentation\CLI();

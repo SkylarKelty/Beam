@@ -9,6 +9,7 @@
 require_once(dirname(__FILE__) . '/../config.php');
 
 $PAGE->set_title('Beam - New Entry');
+$PAGE->set_url('/admin/entry.php');
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading();

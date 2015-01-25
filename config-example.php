@@ -37,10 +37,6 @@ $CFG->cache = array(
     'prefix' => 'beam_'
 );
 
-$CFG->menu = array(
-    'Home' => '/index.php'
-);
-
 require_once(dirname(__FILE__) . '/classes/Autoloader.php');
 
 \Beam\Setup::init();

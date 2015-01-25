@@ -9,6 +9,7 @@
 require_once(dirname(__FILE__) . '/../config.php');
 
 $PAGE->set_title('Beam - Settings');
+$PAGE->set_url('/admin/settings.php');
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading();
