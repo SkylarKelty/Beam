@@ -14,4 +14,10 @@ $PAGE->set_url('/index.php');
 echo $OUTPUT->header();
 echo $OUTPUT->heading();
 
+$blog = new \Beam\Blog();
+$entries = $blog->get_entries();
+foreach ($entries as $entry) {
+	$blog->print_entry_list($entry);
+}
+
 echo $OUTPUT->footer();
