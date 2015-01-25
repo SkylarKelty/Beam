@@ -53,6 +53,9 @@ abstract class Setup
 		// Cache connection.
 		$CACHE = new \Rapid\Data\Memcached($CFG->cache['servers'], $CFG->cache['prefix']);
 
+		// Init DB config.
+		Config::init();
+
 	    // Start a session.
 	    $SESSION = new \Rapid\Auth\Session();
 
@@ -75,36 +78,6 @@ abstract class Setup
 
 		    // Setup navigation.
 		    $PAGE->menu($CFG->menu);
-		}
-	}
-
-	/**
-	 * Init DB config.
-	 */
-	private static function init_cfg() {
-		global $CACHE, $CFG, $DB;
-
-		// Load config.
-		$dbconfig = $CACHE->get('dbconfig');
-		if (!$dbconfig) {
-		    try {
-		        $dbconfig = $DB->get_records('config');
-		        $CACHE->set('dbconfig', $dbconfig);
-		    } catch (\Exception $e) {
-		        if (!defined('INSTALLING') || !INSTALLING) {
-		            die("Database tables are not present. Please run migrate.php");
-		        }
-		    }
-		}
-
-		if ($dbconfig) {
-		    foreach ($dbconfig as $record) {
-		        $name = $record->name;
-		        if (isset($CFG->$name)) {
-		            continue;
-		        }
-		        $CFG->$name = $record->value;
-		    }
 		}
 	}
 }
