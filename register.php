@@ -33,7 +33,10 @@ if (($data = $form->get_data())) {
 	
 	if (!$form->has_errors()) {
 		$auth = new \Beam\Auth();
-		$auth->register($data['username'], $data['password'], $data['firstname'], $data['lastname'], $data['email'], '/login.php');
+		$user = $auth->register($data['username'], $data['password'], $data['firstname'], $data['lastname'], $data['email']);
+		if ($user) {
+			$PAGE->redirect('/login.php');
+		}
 	}
 }
 

@@ -11,12 +11,6 @@ namespace Beam;
 class Auth
 {
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Send us off to the SP.
 	 */
 	public function register($username, $password, $firstname, $lastname, $email) {
@@ -43,6 +37,10 @@ class Auth
 
 		$user['id'] = $DB->insert_Record('users', $user);
 
+		if (empty($user['id'])) {
+			return false;
+		}
+
 		return (object)$user;
 	}
 
@@ -50,7 +48,7 @@ class Auth
 	 * Send us off to the SP.
 	 */
 	public function login($username, $password, $redirect = false) {
-		global $DB, $USER;
+		global $DB, $PAGE, $USER;
 
 		$record = $DB->get_record('users', array(
 			'username' => $username
@@ -80,20 +78,12 @@ class Auth
 	 * Logout.
 	 */
 	public function logout($redirect = false) {
-		global $USER;
+		global $PAGE, $USER;
 
 		$USER->reset();
 
         if ($redirect) {
         	$PAGE->redirect($redirect);
         }
-	}
-
-	/**
-	 * Checks to see if we are logged in.
-	 */
-	public function logged_in() {
-		global $USER;
-		return $USER->loggedin();
 	}
 }
