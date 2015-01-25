@@ -53,6 +53,17 @@ abstract class Setup
 		// Cache connection.
 		$CACHE = new \Rapid\Data\Memcached($CFG->cache['servers'], $CFG->cache['prefix']);
 
+		// Setup CLI_SCRIPT stuff early.
+	    if (CLI_SCRIPT) {
+		    // Output library.
+		    $OUTPUT = new \Rapid\Presentation\CLI();
+	    }
+
+		// Return early if we are installing.
+        if (defined('INSTALLING') && INSTALLING) {
+        	return;
+        }
+
 		// Init DB config.
 		Config::init();
 
@@ -86,9 +97,6 @@ abstract class Setup
 		    } else {
 		    	$PAGE->add_menu_item('Login','/login.php');
 		    }
-		} else {
-		    // Output library.
-		    $OUTPUT = new \Rapid\Presentation\CLI();
 		}
 	}
 }
