@@ -19,11 +19,11 @@ class Auth
 	/**
 	 * Send us off to the SP.
 	 */
-	public function register($user) {
+	public function register($username, $password, $firstname, $lastname, $email) {
 		global $DB;
 
 		$user = $DB->get_record('users', array(
-			'username' => $user->username
+			'username' => $username
 		));
 
 		if ($user) {
@@ -32,11 +32,11 @@ class Auth
 		}
 
 		$user = array(
-			'username' => $user->username,
-			'password' => $user->password_hash($user->password, PASSWORD_BCRYPT),
-			'email' => $user->email,
-			'firstname' => $user->firstname,
-			'lastname' => $user->lastname,
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_BCRYPT),
+			'email' => $email,
+			'firstname' => $firstname,
+			'lastname' => $lastname,
 			'updated' => time(),
 			'created' =>  time()
 		);
@@ -49,14 +49,18 @@ class Auth
 	/**
 	 * Send us off to the SP.
 	 */
-	public function login($redirect = false) {
+	public function login($username, $password, $redirect = false) {
 		global $DB, $USER;
 
 		$record = $DB->get_record('users', array(
-			'username' => $_POST['username']
+			'username' => $username
 		));
 
-		$valid = password_verify($_POST['password'], $record->password);
+		if (!$record) {
+			return false;
+		}
+
+		$valid = password_verify($password, $record->password);
 		if ($valid) {
 			$USER->id = $record->id;
 			$USER->username = $record->username;

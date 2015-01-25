@@ -1,3 +1,7 @@
+body {
+	padding-bottom: 150px;
+}
+
 .page-content {
 	margin-top: 50px;
 }
@@ -7,4 +11,10 @@
 	bottom: 0;
 	width: 100%;
 	margin-bottom: 0;
+	height: 120px;
+}
+
+.developer-noticiations .panel-body {
+	overflow-y: auto;
+	height: 82px;
 }
