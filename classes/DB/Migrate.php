@@ -82,9 +82,9 @@ class Migrate
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
         ');
 
-        // Create post table.
+        // Create blog_entry table.
         $DB->execute('
-            CREATE TABLE {post} (
+            CREATE TABLE {blog_entry} (
                 `id` INT NOT NULL AUTO_INCREMENT,
                 `title` VARCHAR(255) NOT NULL,
                 `contents` TEXT NOT NULL,

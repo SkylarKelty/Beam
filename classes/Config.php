@@ -23,9 +23,7 @@ abstract class Config
 		        $dbconfig = $DB->get_records('config');
 		        $CACHE->set('dbconfig', $dbconfig);
 		    } catch (\Exception $e) {
-		        if (!defined('INSTALLING') || !INSTALLING) {
-		            die("Database tables are not present. Please run migrate.php");
-		        }
+		    	die("Database tables are not present. Please run migrate.php");
 		    }
 		}
 
