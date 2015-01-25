@@ -20,19 +20,14 @@ class Migrate
         if (isset($CFG->version)) {
         	$OUTPUT->send("Current version: {$CFG->version}.");
         	$CFG->old_version = $CFG->version;
+        } else {
+            $OUTPUT->send("Running complete install.");
+            $this->base_install();
+            $OUTPUT->send("Finished installing version: {$CFG->version}.");
+            return;
         }
 
-        if (!isset($CFG->version) || $CFG->version < 2015012500) {
-            $OUTPUT->send(" -> Migrating to version: 2015012500.");
-            $this->migration_2015012500();
-        	\Beam\Config::set('version', 2015012500);
-        }
-
-        if ($CFG->version < 2015012600) {
-            $OUTPUT->send(" -> Migrating to version: 2015012600.");
-            $this->migration_2015012600();
-        	\Beam\Config::set('version', 2015012600);
-        }
+        // Migration scripts here.
 
         if ($CFG->old_version != $CFG->version) {
 	        $OUTPUT->send("Migrated to version: {$CFG->version}.");
@@ -44,7 +39,7 @@ class Migrate
     /**
      * Initial table layout.
      */
-    public function migration_2015012500() {
+    public function base_install() {
         global $DB;
 
         // Create config table.
@@ -57,41 +52,51 @@ class Migrate
 				UNIQUE INDEX `name` (`name` ASC)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
         ');
-    }
-
-    /**
-     * Initial table layout.
-     */
-    public function migration_2015012600() {
-        global $DB;
 
         // Create users table.
         $DB->execute('
-			CREATE TABLE {users} (
-				`id` INT NOT NULL AUTO_INCREMENT,
-				`username` VARCHAR(45) NOT NULL,
-				`password` VARCHAR(60) NOT NULL,
-				`email` VARCHAR(255) NOT NULL,
-				`firstname` VARCHAR(45) NULL,
-				`lastname` VARCHAR(45) NULL,
-				`updated` INT(11) NULL,
-				`created` INT(11) NULL,
-				PRIMARY KEY (`id`),
-				UNIQUE INDEX `username_UNIQUE` (`username` ASC),
-				UNIQUE INDEX `email_UNIQUE` (`email` ASC)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+            CREATE TABLE {users} (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `username` VARCHAR(45) NOT NULL,
+                `password` VARCHAR(60) NOT NULL,
+                `email` VARCHAR(255) NOT NULL,
+                `firstname` VARCHAR(45) NULL,
+                `lastname` VARCHAR(45) NULL,
+                `updated` INT(11) NULL,
+                `created` INT(11) NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+                UNIQUE INDEX `email_UNIQUE` (`email` ASC)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
         ');
 
         // Create roles table.
         $DB->execute('
-			CREATE TABLE {roles} (
-				`id` INT NOT NULL AUTO_INCREMENT,
-				`userid` INT NOT NULL,
-				`roleid` INT NOT NULL,
-				PRIMARY KEY (`id`),
-				INDEX `user` (`userid` ASC),
-				INDEX `role` (`roleid` ASC)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+            CREATE TABLE {roles} (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `userid` INT NOT NULL,
+                `roleid` INT NOT NULL,
+                PRIMARY KEY (`id`),
+                INDEX `user` (`userid` ASC),
+                INDEX `role` (`roleid` ASC)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
         ');
+
+        // Create post table.
+        $DB->execute('
+            CREATE TABLE {post} (
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `title` VARCHAR(255) NOT NULL,
+                `contents` TEXT NOT NULL,
+                `userid` INT NOT NULL,
+                `updated` INT(11) NULL,
+                `created` INT(11) NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE INDEX `title_UNIQUE` (`title` ASC),
+                INDEX `userid` (`userid` ASC)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+        ');
+
+        \Beam\Config::set('version', 2015012600);
     }
 }
