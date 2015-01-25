@@ -36,6 +36,7 @@ abstract class Setup
 		if (isset($CFG->developer_mode) && $CFG->developer_mode) {
 			@error_reporting(E_ALL);
 			set_error_handler(array('Rapid\\Core', 'error_handler'), E_ALL);
+			set_exception_handler(array('Rapid\\Core', 'handle_exception'));
 		}
 
 		// DB connection.
