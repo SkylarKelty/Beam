@@ -78,6 +78,9 @@ abstract class Setup
 
 		    // Setup navigation.
 		    $PAGE->menu($CFG->menu);
+		} else {
+		    // Output library.
+		    $OUTPUT = new \Rapid\Presentation\CLI();
 		}
 	}
 }

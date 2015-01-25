@@ -14,24 +14,24 @@ class Migrate
      * Run migrations.
      */
     public function run() {
-        global $CFG;
+        global $CFG, $OUTPUT;
 
     	$CFG->old_version = 0;
         if (isset($CFG->version)) {
-        	echo "Current version: {$CFG->version}.\n";
+        	$OUTPUT->send("Current version: {$CFG->version}.");
         	$CFG->old_version = $CFG->version;
         }
 
         if (!isset($CFG->version) || $CFG->version < 2015012500) {
-            echo " -> Migrating to version: 2015012500.\n";
+            $OUTPUT->send(" -> Migrating to version: 2015012500.");
             $this->migration_2015012500();
         	\Beam\Config::set('version', 2015012500);
         }
 
         if ($CFG->old_version != $CFG->version) {
-	        echo "Migrated to version: {$CFG->version}.\n";
+	        $OUTPUT->send("Migrated to version: {$CFG->version}.");
 	    } else {
-	    	echo "Nothing to do!\n";
+	    	$OUTPUT->send("Nothing to do!");
 	    }
     }
 
