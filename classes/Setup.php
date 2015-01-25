@@ -32,6 +32,12 @@ abstract class Setup
 
 		$CFG->_init_called = microtime(true);
 
+		// Developer mode?
+		if (isset($CFG->developer_mode) && $CFG->developer_mode) {
+			@error_reporting(E_ALL);
+			set_error_handler(array('Beam\\Setup', 'error_handler'), E_ALL);
+		}
+
 		// DB connection.
 		$DB = new \Rapid\Data\PDO(
 		    $CFG->database['adapter'],
@@ -59,7 +65,9 @@ abstract class Setup
 		    // Page library.
 		    $PAGE = new \Rapid\Presentation\Page();
 		    $PAGE->require_css("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css");
+		    $PAGE->require_js("//code.jquery.com/jquery-1.11.2.min.js");
 		    $PAGE->require_js("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js");
+
 
 		    // Set a default page title.
 		    $PAGE->set_title($CFG->brand);
@@ -97,5 +105,36 @@ abstract class Setup
 		        $CFG->$name = $record->value;
 		    }
 		}
+	}
+
+	/**
+	 * Error handler.
+	 */
+	public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+		global $PAGE;
+
+		switch ($errno) {
+			case E_STRICT:
+			case E_DEPRECATED:
+			case E_NOTICE:
+			case E_WARNING:
+			case E_USER_WARNING:
+			case E_USER_NOTICE:
+				$message = "Issue in {$errfile} ({$errline}): {$errstr}.";
+				if (isset($PAGE)) {
+					$PAGE->notify($message);
+				} else {
+					echo $message;
+				}
+			break;
+
+			case E_ERROR:
+			case E_USER_ERROR:
+				// TODO - fast exit a nice Page.
+			break;
+		}
+
+		// Allow PHP to do its thing.
+		return false;
 	}
 }
