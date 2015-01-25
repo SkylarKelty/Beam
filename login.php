@@ -11,6 +11,8 @@ require_once(dirname(__FILE__) . '/config.php');
 $PAGE->set_title('Login');
 $PAGE->set_url('/login.php');
 
+$AUTH->login_page_hook('/index.php');
+
 $form = new \Rapid\Presentation\Form('/login.php');
 $form->add_element('username', \Rapid\Presentation\Form::TYPE_STRING);
 $form->add_element('password', \Rapid\Presentation\Form::TYPE_PASSWORD);

@@ -14,7 +14,7 @@ abstract class Setup
 	 * Initialize Beam.
 	 */
 	public static function init() {
-		global $CACHE, $CFG, $DB, $PAGE, $OUTPUT, $SESSION, $USER;
+		global $AUTH, $CACHE, $CFG, $DB, $PAGE, $OUTPUT, $SESSION, $USER;
 
 		if (!defined('CLI_SCRIPT')) {
 		    define('CLI_SCRIPT', false);
@@ -62,6 +62,10 @@ abstract class Setup
 	    // Setup a guest user by default.
 	    $USER = new \Rapid\Auth\User();
 
+	    // Setup auth plugin.
+	    $auth = $CFG->auth;
+	    $AUTH = new $auth();
+
 	    if (!CLI_SCRIPT) {
 		    // Output library.
 		    $OUTPUT = new \Rapid\Presentation\Output();
@@ -71,7 +75,6 @@ abstract class Setup
 		    $PAGE->require_css("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css");
 		    $PAGE->require_js("//code.jquery.com/jquery-1.11.2.min.js");
 		    $PAGE->require_js("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js");
-
 
 		    // Set a default page title.
 		    $PAGE->set_title($CFG->brand);

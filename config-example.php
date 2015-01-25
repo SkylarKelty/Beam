@@ -37,6 +37,9 @@ $CFG->cache = array(
     'prefix' => 'beam_'
 );
 
+//$CFG->auth = '\\Beam\\Auth\\SimpleSAMLPHP'; // SimpleSAMLPHP auth.
+$CFG->auth = '\\Beam\\Auth\\DB'; // Database auth.
+
 require_once(dirname(__FILE__) . '/classes/Autoloader.php');
 
 \Beam\Setup::init();

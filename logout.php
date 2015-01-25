@@ -11,5 +11,4 @@ require_once(dirname(__FILE__) . '/config.php');
 $PAGE->set_title('Logout');
 $PAGE->set_url('/logout.php');
 
-$auth = new \Beam\Auth();
-$auth->logout('/index.php');
+$AUTH->logout('/index.php');

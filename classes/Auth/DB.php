@@ -6,9 +6,9 @@
  * @author Skylar Kelty <skylarkelty@gmail.com>
  */
 
-namespace Beam;
+namespace Beam\Auth;
 
-class Auth extends \Rapid\Auth\AuthPlugin
+class DB extends \Rapid\Auth\AuthPlugin
 {
 	/**
 	 * Send us off to the SP.
@@ -72,18 +72,5 @@ class Auth extends \Rapid\Auth\AuthPlugin
 		}
 
         return $valid;
-	}
-
-	/**
-	 * Logout.
-	 */
-	public function logout($redirect = false) {
-		global $PAGE, $USER;
-
-		$USER->reset();
-
-        if ($redirect) {
-        	$PAGE->redirect($redirect);
-        }
 	}
 }
