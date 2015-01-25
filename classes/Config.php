@@ -18,7 +18,7 @@ abstract class Config
 
 		// Load config.
 		$dbconfig = $CACHE->get('dbconfig');
-		if (!$dbconfig) {
+		if ($records === false) {
 		    try {
 		        $dbconfig = $DB->get_records('config');
 		        $CACHE->set('dbconfig', $dbconfig);
