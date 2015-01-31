@@ -54,14 +54,14 @@ class Blog
 		}
 
 		echo <<<HTML5
-			<div class="panel panel-default blog-post">
-				<div class="panel-heading">
-					<h3 class="panel-title">{$title}</h3>
+			<div class="blog-post">
+				<div class="blog-post-heading">
+					<h3 class="blog-post-title">{$title}</h3>
 				</div>
-				<div class="panel-body">
+				<div class="blog-post-body">
 					{$contents}
 				</div>
-				<div class="panel-footer blog-post-footer">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</div>
+				<div class="blog-post-footer">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</div>
 			</div>
 HTML5;
 	}

@@ -19,6 +19,11 @@ body {
 	height: 82px;
 }
 
+.blog-post .blog-post-heading {
+	border-bottom: 1px solid #efefef;
+	margin-bottom: 10px;
+}
+
 .blog-post .blog-post-footer {
 	background: none;
 	border: 0;
