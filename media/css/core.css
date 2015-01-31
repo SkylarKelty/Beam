@@ -18,3 +18,11 @@ body {
 	overflow-y: auto;
 	height: 82px;
 }
+
+.blog-post .blog-post-footer {
+	background: none;
+	border: 0;
+	font-size: 0.82em;
+	padding-bottom: 5px;
+	padding-top: 0;
+}

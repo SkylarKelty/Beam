@@ -61,7 +61,7 @@ class Blog
 				<div class="panel-body">
 					{$contents}
 				</div>
-				<div class="panel-footer">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</div>
+				<div class="panel-footer blog-post-footer">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</div>
 			</div>
 HTML5;
 	}
