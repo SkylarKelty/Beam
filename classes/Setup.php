@@ -39,6 +39,11 @@ abstract class Setup
 			set_exception_handler(array('Rapid\\Core', 'handle_exception'));
 		}
 
+		// Try and set timezone if we don't have a default.
+		if (!ini_get("date.timezone")) {
+			ini_set("date.timezone", "UTC");
+		}
+
 		// DB connection.
 		$DB = new \Rapid\Data\PDO(
 		    $CFG->database['adapter'],
