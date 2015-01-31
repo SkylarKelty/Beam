@@ -73,4 +73,17 @@ class DB extends \Rapid\Auth\AuthPlugin
 
         return $valid;
 	}
+
+	/**
+	 * Logout.
+	 */
+	public function logout($redirect = false) {
+		global $PAGE, $USER;
+
+		$USER->reset();
+
+        if ($redirect) {
+        	$PAGE->redirect($redirect);
+        }
+	}
 }

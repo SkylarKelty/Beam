@@ -19,8 +19,7 @@ $form->add_element('password', \Rapid\Presentation\Form::TYPE_PASSWORD);
 
 $authvalid = null;
 if (($data = $form->get_data())) {
-	$auth = new \Beam\Auth();
-	$authvalid = $auth->login($data['username'], $data['password'], '/index.php');
+	$authvalid = $AUTH->login($data['username'], $data['password'], '/index.php');
 }
 
 echo $OUTPUT->header();
