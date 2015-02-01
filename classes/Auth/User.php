@@ -20,61 +20,17 @@ class User extends \Rapid\Auth\User
 	public function on_login() {
 		global $USER;
 
-		$USER->roles = $this->get_roles($USER->id);
-	}
+		parent::on_login();
 
-	/**
-	 * Get roles for a user.
-	 */
-	public function get_roles($userid) {
-		global $DB;
-
-		return $DB->get_fieldset('roles', 'roleid', array(
-			'userid' => $userid
-		));
+		$USER->roles = \Beam\Roles::get_roles($USER->id);
 	}
 
 	/**
 	 * Does this user have a specific role?
 	 */
-	public function has_role($userid, $roleid) {
-		$roles = $this->get_roles($userid);
-		return in_array($roleid, $roles);
-	}
+	public function has_role($roleid) {
+		global $USER;
 
-	/**
-	 * Add a role to a user.
-	 */
-	public function add_role($userid, $roleid) {
-		global $DB, $USER;
-
-		if (!$this->has_role($userid, $roleid)) {
-			$DB->insert_record('roles', array(
-				'userid' => $userid,
-				'roleid' => $roleid
-			));
-		}
-
-		if ($USER->id == $userid) {
-			$USER->roles = $this->get_roles($USER->id);
-		}
-	}
-
-	/**
-	 * Remove a role from a user.
-	 */
-	public function remove_role($userid, $roleid) {
-		global $DB, $USER;
-
-		if ($this->has_role($userid, $roleid)) {
-			$DB->delete_records('roles', array(
-				'userid' => $userid,
-				'roleid' => $roleid
-			));
-		}
-
-		if ($USER->id == $userid) {
-			$USER->roles = $this->get_roles($USER->id);
-		}
+		return in_array($roleid, $USER->roles);
 	}
 }
