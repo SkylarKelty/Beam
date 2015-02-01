@@ -11,7 +11,13 @@ require_once(dirname(__FILE__) . '/../config.php');
 $PAGE->set_title('New Post');
 $PAGE->set_url('/admin/entry.php');
 
+$form = new \Beam\Forms\Post('/admin/entry.php');
+
 echo $OUTPUT->header();
 echo $OUTPUT->heading();
+
+echo '<div class="row">';
+echo "<div class=\"col-md-5\">{$form}</div>";
+echo '</div>';
 
 echo $OUTPUT->footer();

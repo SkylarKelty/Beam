@@ -14,7 +14,7 @@ $PAGE->set_url('/index.php');
 echo $OUTPUT->header();
 
 $blog = new \Beam\Blog();
-$entries = $blog->get_entries();
+$entries = $blog->get_entries(3);
 foreach ($entries as $entry) {
 	$blog->print_entry_list($entry);
 }

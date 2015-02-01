@@ -11,22 +11,46 @@ namespace Beam;
 class Blog
 {
 	/**
+	 * Submit a new post.
+	 */
+	public function new_entry($title, $content) {
+		global $DB, $CACHE, $USER;
+
+		$DB->insert_record('posts', array(
+			'title' => $title,
+			'contents' => $content,
+			'userid' => $USER->id,
+			'updated' => time(),
+			'created' => time()
+		));
+
+		// Regen cache.
+		$CACHE->delete('blog_posts');
+		$this->get_entries();
+	}
+
+	/**
 	 * Returns a (cached) list of all blog entries.
 	 */
-	public function get_entries() {
+	public function get_entries($limit = 0) {
 		global $DB, $CACHE;
 
-		$records = $CACHE->get('blog_entries');
+		$records = $CACHE->get('blog_posts');
 		if ($records === false) {
 	        $records = $DB->get_records_sql('
 	        	SELECT
 	        		be.id, be.title, be.contents, be.updated, be.created,
 	        		be.userid as author_id, u.firstname as author_firstname, u.lastname as author_lastname
-	        	FROM {blog_entry} be
+	        	FROM {posts} be
 	        	INNER JOIN {users} u
 	        		ON u.id=be.userid
+	        	ORDER BY be.created DESC
 	        ');
-	        $CACHE->set('blog_entries', $records);
+	        $CACHE->set('blog_posts', $records);
+		}
+
+		if ($limit > 0) {
+			return array_slice($records, 0, $limit);
 		}
 
 		return $records;
