@@ -24,14 +24,6 @@ class User extends \Rapid\Auth\User
 	}
 
 	/**
-	 * Does this user have a specific role?
-	 */
-	public function has_role($userid, $roleid) {
-		$roles = $this->get_roles($userid);
-		return in_array($roleid, $roles);
-	}
-
-	/**
 	 * Get roles for a user.
 	 */
 	public function get_roles($userid) {
@@ -40,6 +32,14 @@ class User extends \Rapid\Auth\User
 		return $DB->get_fieldset('roles', 'roleid', array(
 			'userid' => $userid
 		));
+	}
+
+	/**
+	 * Does this user have a specific role?
+	 */
+	public function has_role($userid, $roleid) {
+		$roles = $this->get_roles($userid);
+		return in_array($roleid, $roles);
 	}
 
 	/**
