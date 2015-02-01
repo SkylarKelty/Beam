@@ -42,7 +42,7 @@ class User extends \Rapid\Auth\User
 
 		$roles = $this->get_roles($userid);
 
-		if (!in_array($roleid, $role)) {
+		if (!in_array($roleid, $roles)) {
 			$DB->insert_record('roles', array(
 				'userid' => $userid,
 				'roleid' => $roleid
