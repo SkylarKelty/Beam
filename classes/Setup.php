@@ -34,7 +34,7 @@ abstract class Setup
 	    $SESSION = new \Rapid\Auth\Session();
 
 	    // Setup a guest user by default.
-	    $USER = new \Rapid\Auth\User();
+	    $USER = new \Beam\Auth\User();
 
 	    // Setup auth plugin.
 	    $auth = $CFG->auth;

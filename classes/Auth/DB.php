@@ -66,6 +66,8 @@ class DB extends \Rapid\Auth\AuthPlugin
 			$USER->firstname = $record->firstname;
 			$USER->lastname = $record->lastname;
 
+        	$USER->on_login();
+
 	        if ($redirect) {
 	        	$PAGE->redirect($redirect);
 	        }
