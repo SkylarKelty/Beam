@@ -34,6 +34,21 @@ abstract class Roles
 	}
 
 	/**
+	 * Does this user have a specific role?
+	 */
+	public function has_any_role($roles) {
+		$dbroles = static::get_roles($userid);
+
+		foreach ($roles as $roleid) {
+			if (!in_array($roleid, $dbroles)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Add a role to a user.
 	 */
 	public static function add_role($userid, $roleid) {

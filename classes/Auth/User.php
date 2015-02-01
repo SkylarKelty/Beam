@@ -33,4 +33,19 @@ class User extends \Rapid\Auth\User
 
 		return in_array($roleid, $USER->roles);
 	}
+
+	/**
+	 * Does this user have a specific role?
+	 */
+	public function has_any_role($roles) {
+		global $USER;
+
+		foreach ($roles as $roleid) {
+			if (!in_array($roleid, $USER->roles)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
