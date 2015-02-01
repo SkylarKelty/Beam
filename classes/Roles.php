@@ -10,9 +10,7 @@ namespace Beam;
 
 abstract class Roles
 {
-	const ROLE_VIEWER = 1;
-	const ROLE_EDITOR = 2;
-	const ROLE_ADMIN  = 4;
+	const ROLE_ADMIN  = 1;
 
 	/**
 	 * Get roles for a user.

@@ -51,11 +51,17 @@ abstract class Setup
 		    $PAGE->set_title($CFG->brand);
 
 		    // Setup navigation.
-		    $PAGE->add_menu_item('Home','/index.php');
+		    $PAGE->add_menu_item('Home', '/index.php');
 		    if ($USER->loggedin()) {
-		    	$PAGE->add_menu_item('Logout','/logout.php');
+		    	// Build admin navbar.
+		    	if ($USER->has_role(\Beam\Roles::ROLE_ADMIN)) {
+			    	$PAGE->add_menu_item('New Post', '/admin/entry.php');
+			    	$PAGE->add_menu_item('Site Settings', '/admin/settings.php');
+		    	}
+
+		    	$PAGE->add_menu_item('Logout', '/logout.php');
 		    } else {
-		    	$PAGE->add_menu_item('Login','/login.php');
+		    	$PAGE->add_menu_item('Login', '/login.php');
 		    }
 		}
 	}
