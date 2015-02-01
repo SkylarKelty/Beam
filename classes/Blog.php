@@ -55,13 +55,10 @@ class Blog
 
 		echo <<<HTML5
 			<div class="blog-post">
-				<div class="blog-post-heading">
-					<h3 class="blog-post-title">{$title}</h3>
-				</div>
-				<div class="blog-post-body">
-					{$contents}
-				</div>
-				<div class="blog-post-footer">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</div>
+				<h2 class="blog-post-title">{$title}</h2>
+				<p class="blog-post-meta">By <a href="{$authorurl}">{$author}</a> {$lastupdated}</p>
+				<hr />
+				{$contents}
 			</div>
 HTML5;
 	}

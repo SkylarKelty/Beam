@@ -15,17 +15,14 @@ body {
   overflow-y: auto;
   height: 82px;
 }
-.blog-post .blog-post-heading {
-  border-bottom: 1px solid #efefef;
-  margin-bottom: 10px;
+.blog-post {
+  margin-bottom: 60px;
 }
-.blog-post .blog-post-body {
-  padding-bottom: 10px;
+.blog-post .blog-post-title {
+  margin-bottom: 5px;
+  font-size: 40px;
 }
-.blog-post .blog-post-footer {
-  background: none;
-  border: 0;
-  font-size: 0.82em;
-  padding-bottom: 5px;
-  padding-top: 0;
+.blog-post .blog-post-meta {
+  margin-bottom: 20px;
+  color: #999;
 }

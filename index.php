@@ -12,7 +12,6 @@ $PAGE->set_title('Beam');
 $PAGE->set_url('/index.php');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading();
 
 $blog = new \Beam\Blog();
 $entries = $blog->get_entries();
