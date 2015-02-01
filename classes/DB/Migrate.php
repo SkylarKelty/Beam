@@ -78,7 +78,8 @@ class Migrate
                 `roleid` INT NOT NULL,
                 PRIMARY KEY (`id`),
                 INDEX `user` (`userid` ASC),
-                INDEX `role` (`roleid` ASC)
+                INDEX `role` (`roleid` ASC),
+                UNIQUE INDEX `userrole_UNIQUE` (`userid` ASC, `roleid` ASC)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
         ');
 
