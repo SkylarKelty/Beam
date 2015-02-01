@@ -10,6 +10,7 @@ require_once(dirname(__FILE__) . '/../config.php');
 
 $PAGE->set_title('Site Settings');
 $PAGE->set_url('/admin/settings.php');
+$PAGE->require_role(\Beam\Roles::ROLE_ADMIN);
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading();

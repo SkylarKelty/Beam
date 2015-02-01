@@ -10,6 +10,7 @@ require_once(dirname(__FILE__) . '/../config.php');
 
 $PAGE->set_title('New Post');
 $PAGE->set_url('/admin/entry.php');
+$PAGE->require_role(\Beam\Roles::ROLE_ADMIN);
 
 $form = new \Beam\Forms\Post('/admin/entry.php');
 

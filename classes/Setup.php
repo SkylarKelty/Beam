@@ -42,7 +42,7 @@ abstract class Setup
 
 	    if (!CLI_SCRIPT) {
 		    // Page library.
-		    $PAGE = new \Rapid\Presentation\Page();
+		    $PAGE = new \Beam\Page();
 		    $PAGE->require_css("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css");
 		    $PAGE->require_js("//code.jquery.com/jquery-1.11.2.min.js");
 		    $PAGE->require_js("//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js");
