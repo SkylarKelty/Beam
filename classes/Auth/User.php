@@ -24,6 +24,14 @@ class User extends \Rapid\Auth\User
 	}
 
 	/**
+	 * Does this user have a specific role?
+	 */
+	public function has_role($userid, $roleid) {
+		$roles = $this->get_roles($userid);
+		return in_array($roleid, $roles);
+	}
+
+	/**
 	 * Get roles for a user.
 	 */
 	public function get_roles($userid) {
@@ -40,9 +48,7 @@ class User extends \Rapid\Auth\User
 	public function add_role($userid, $roleid) {
 		global $DB, $USER;
 
-		$roles = $this->get_roles($userid);
-
-		if (!in_array($roleid, $roles)) {
+		if (!$this->has_role($userid, $roleid)) {
 			$DB->insert_record('roles', array(
 				'userid' => $userid,
 				'roleid' => $roleid
@@ -60,10 +66,12 @@ class User extends \Rapid\Auth\User
 	public function remove_role($userid, $roleid) {
 		global $DB, $USER;
 
-		$DB->delete_records('roles', array(
-			'userid' => $userid,
-			'roleid' => $roleid
-		));
+		if ($this->has_role($userid, $roleid)) {
+			$DB->delete_records('roles', array(
+				'userid' => $userid,
+				'roleid' => $roleid
+			));
+		}
 
 		if ($USER->id == $userid) {
 			$USER->roles = $this->get_roles($USER->id);
